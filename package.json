@@ -1,9 +1,10 @@
 {
   "name": "noderblog",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "author": "diorsdoge",
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
