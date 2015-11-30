@@ -1,0 +1,12 @@
+<%- include header %>
+<ul>
+<% var lastYear = 0 %>
+<% posts.forEach(function (post, index) { %>
+  <% if (lastYear != post.time) { %>
+    <li><h3><%= post.time.year %></h3></li>
+  <% lastYear = post.time.year } %>
+    <li><time><%= post.time %></time></li>
+    <li><a href="/post/<%= post._id %>"><%= post.title %></a></li>
+<% }) %>
+</ul>
+<%- include footer %>
