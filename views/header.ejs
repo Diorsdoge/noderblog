@@ -14,16 +14,19 @@
    <h1><%= title %></h1>
  <nav>
  <span><a title="主页" href="/">主页</a></span>
- <span><a title="存档" href="/archive">存档</a></span>
+ <span><a title="存档" href="/archive">归档</a></span>
  <span><a title="标签" href="/tags">标签</a></span>
-<% if (user) { %>
+<% if(typeof(user) !== 'undefined') { %>
    <span><a title="上传" href="/upload">上传</a></span>
    <span><a title="发表" href="/post">发表</a></span>
    <span><a title="登出" href="/logout">退出</a></span>
-<% } else { %>
-   <span><a title="登录" href="/login">登陆</a></span>
 <% } %>
 
 </nav>
 </div>
 <div class="post">
+ <% if (typeof(error) !== 'undefined' && error) { %>
+      <div>
+        <a data-dismiss="alert" href="#">&times;</a>
+        <strong><%= error %></strong>
+        <% } %>
