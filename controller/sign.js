@@ -92,7 +92,8 @@ exports.register = function (req, res, next) {
 //登陆
 exports.showLogin = function(req, res) {
 	res.render('login', {
-		title:'登陆'
+		title:'登陆',
+		user: req.session.user
 	});
 };
 

@@ -4,9 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var webRouter = require('./webrouter');
+
+
 
 var config = require('./config');
 
@@ -28,6 +31,8 @@ app.use(session({
     port: config.port
   })
 }));
+
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

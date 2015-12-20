@@ -1,6 +1,12 @@
 <%- include header %>
-<form method='post' action='/upload' enctype='multipart/form-data' >
+<form method='post' enctype='multipart/form-data' >
+  标题：<br />
+  <input type="text" name="title" /><br />
   <input type="file" name='upload'/><br>
+  描述：<br />
+  <textarea name="description" rows="8" cols="50"></textarea><br />
+  标签：<br />
+  <input type="text" name="tags" style="width: 500px" /> <br />
   <input type="submit" />
 </form>
 <%- include footer %>

@@ -1,0 +1,22 @@
+<%- include header %>
+<% images.forEach(function (image, index) { %>
+  <p><h2><a href="/images/<%= image._id %>"><%= image.title %></a></h2>
+  <!-- <a href="/u/<%= image.author %>"><img src="#" class="r_head" /></a>
+  </p> -->
+  <p>
+    作者：<a href="/u/<%= image.author %>"><%= image.author %></a> |
+    日期：<%= image.time.minute %> |
+    标签：
+  <% image.tags.forEach(function (tag, index) { %>
+    <% if (tag) { %>
+      <a href="/tags/<%= tag %>"><%= tag %></a>
+    <% } %>
+  <% }) %>
+  </p>
+  <p><img src="<%= 's'+image.path %>" /></p>
+  <p><%- image.description %></p>
+  <p>阅读：<%= image.pv %>| 评论：<%= image.cmtcount %></p>
+
+  <% }) %>
+  <%- include paging %>
+<%- include footer %> 

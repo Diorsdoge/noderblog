@@ -48,7 +48,7 @@ exports.post = function (req, res, next) {
 	var currentUser = req.session.user;
 	var title = req.body.title,
 		content = req.body.post;
-		tags = req.body.tags.split(" ");
+	var	tags = req.body.tags.split(" ");
 	var date = new Date();
 	var time = {
 			date: date,
@@ -201,15 +201,6 @@ exports.getTagPosts = function (req, res) {
 	});
 };
 
-exports.search = function (req, res) {
-	Post.search(req.query.keyword, function(err, posts) {
-		res.render('search', {
-			title: "SEARCH:" + req.query.keyword,
-			posts: posts,
-			user: req.session.user
-		});
-	});
-};
 
 exports.pageNotFound = function(req, res) {
 	res.render("404");
