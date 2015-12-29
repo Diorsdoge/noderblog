@@ -2,8 +2,7 @@
 <%- include header%>
 <% if (user) { %>
 <p>
-  <span><a href="/edit/<%= image._id %>">编辑</a></span>
-  <span><a href="/remove/<%= image._id %>">删除</a></span>
+  <span><a href="/iremove/<%= image._id %>">删除</a></span>
 </p>
 <% } %>
 <p>
@@ -18,7 +17,7 @@
 </p>
 <p><img src="<%= image.path %>" /></p>
 <p><%- image.description %></p>
-<p>阅读：<%= image.pv %> | 评论：<%= comments.length %></p>
+<p>阅读：<%= image.pv %></p>
 
-<%- include comment %>
+<%- include youyan %>
 <%- include footer %>

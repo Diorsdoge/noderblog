@@ -2,14 +2,12 @@ var config = require('../config');
 var Post = require('../proxy').Post;
 var Images = require('../proxy').Images;
 var User = require('../proxy/').User;
-var Comments = require('../proxy/').Comments;
 var crypto = require('crypto');
 var markdown = require('markdown').markdown;
 
 exports.showImages = function (req, res) {
 
 	var page = parseInt(req.query.p) || 1;
-	var comments = [];
 
 	Images.getFullImages(page, function(err, images) {
 		if( err) {
@@ -27,7 +25,7 @@ exports.showImages = function (req, res) {
 				isFirstPage: (page - 1) == 0,
       			isLastPage: ((page - 1) * 10 + images.length) == count
 			});
-		})		
+		});	
 		
 	});
 };
@@ -86,23 +84,11 @@ exports.showOneImage = function (req, res) {
 		if (err) {
 			return res.redirect('/');
 		}
-
-		Comments.getCommentsById(req.params.pid, function(err, comments) {
-			if(comments){
-			
-				comments.forEach(function(comment){
-					comment.content = markdown.toHTML(comment.content);
-				});
-			}
-
-			res.render('img', {
-				title: image.title,
-				comments: comments,
-				image: image,
-				user: req.session.user
-			});
-		});
-		
+		res.render('img', {
+			title: image.title,
+			image: image,
+			user: req.session.user
+		});	
 	});
 };
 
@@ -158,15 +144,15 @@ exports.showOneImage = function (req, res) {
 // 	});
 // };
 
-// exports.removePost = function(req, res) {
+exports.removeImage = function(req, res) {
 
-// 	Post.removePost(req.params.pid, function(err) {
-// 		if (err){
-// 			res.redirect('/post/' + req.params.pid);
-// 		}
-// 		res.redirect('/');
-// 	});
-// };
+	Images.removeImage(req.params.iid, function(err) {
+		if (err){
+			res.redirect('/images/' + req.params.pid);
+		}
+		res.redirect('/');
+	});
+};
 
 // exports.archive = function (req, res) {
 // 	Post.getArchive(function(err, posts) {

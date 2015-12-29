@@ -14,6 +14,7 @@ exports.showRegister = function (req, res) {
 		}
 			res.render('reg', {
 			title:'注册',
+			user: req.session.user,
 		});
 	});	
 };

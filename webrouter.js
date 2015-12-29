@@ -12,7 +12,7 @@ var router = express.Router();
 router.get('/', post.index);
 
 router.get('/images', images.showImages);
-
+router.get('/iremove/:iid', auth.userRequired, images.removeImage);
 
 router.get('/reg', sign.showRegister);
 router.post('/reg', sign.register);
@@ -30,7 +30,6 @@ router.post('/upload', auth.userRequired, store.upload);
 
 router.get('/u/:author', post.searchUserPost);
 router.get('/post/:pid', post.showOnePost);
-router.post('/post/:pid', post.saveComments);
 router.get('/images/:imgid', images.showOneImage);
 
 router.get('/edit/:pid', auth.userRequired, post.showUpdatePost);

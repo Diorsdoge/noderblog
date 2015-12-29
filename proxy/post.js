@@ -1,5 +1,4 @@
 var eventproxy = require('eventproxy');
-var Comment = require('./comments');
 var models = require('../models');
 var Post = models.Post;
 var User = require('./user');
@@ -90,21 +89,6 @@ exports.search = function(keyword, callback) {
 	});
 }
 
-exports.addComment = function(condition, callback) {
-	Post.findOne({_id: condition}, function (err, post) {
-		if (err) {
-			return callback(err);
-		}
-		if (post) {
-			post.update({$inc: {"cmtcount": 1}}, function(err){
-				if (err) {
-					return callback(err);
-				};
-			});
-		}
-		callback(null, post);
-	});
-};
 
 
 

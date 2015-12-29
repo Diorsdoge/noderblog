@@ -1,6 +1,5 @@
 var Post = require('../proxy').Post;
 var User = require('../proxy/').User;
-var Comments = require('../proxy/').Comments;
 var Images = require('../proxy/').Images;
 
 exports.search = function (req, res) {

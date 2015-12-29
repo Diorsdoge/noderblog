@@ -9,7 +9,6 @@ var ImagesSchema = new Schema({
 	time: { },
 	tags: { type: Array },
 	pv: { type: Number, default: 0 },
-	cmtcount: { type: Number, default: 0}
 });
 
 mongoose.model('Images', ImagesSchema);

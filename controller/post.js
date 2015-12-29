@@ -1,7 +1,6 @@
 var config = require('../config');
 var Post = require('../proxy').Post;
 var User = require('../proxy/').User;
-var Comments = require('../proxy/').Comments;
 var crypto = require('crypto');
 var markdown = require('markdown').markdown;
 
@@ -14,7 +13,6 @@ exports.index = function (req, res, next) {
 	})
 
 	var page = parseInt(req.query.p) || 1;
-	var comments = [];
 
 	Post.getFullPost(page, function(err, posts) {
 		if( err) {
@@ -67,7 +65,6 @@ exports.post = function (req, res, next) {
 };
 
 exports.searchUserPost = function (req, res) {
-	var comments = [];
 	User.getUserByUsername(req.params.author, function(err, user) {
 		if (!user) {
 			return res.redirect('/');
@@ -92,45 +89,14 @@ exports.showOnePost = function (req, res) {
 			return res.redirect('/');
 		}
 		post.content = markdown.toHTML(post.content);
-		Comments.getCommentsById(req.params.pid, function(err, comments) {
-			if(comments){
-			
-				comments.forEach(function(comment){
-					comment.content = markdown.toHTML(comment.content);
-				});
-			}
 
-			res.render('article', {
-				title: post.title,
-				comments: comments,
-				post: post,
-				user: req.session.user
-			});
+		res.render('article', {
+			title: post.title,
+			post: post,
+			user: req.session.user
 		});
 		
 	});
-};
-
-exports.saveComments = function (req, res, next) {
-	var date = new Date();
-	var time = {
-			date: date,
-			year: date.getFullYear(),
-			month: date.getFullYear() + "-" + (date.getMonth() + 1),
-			day: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate(),
-			minute: date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "," + date.getHours() + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes(): date.getMinutes())
-	};
-	Comments.newAndSave(req.body.content, req.body.name, req.params.pid, time, function(err){
-		if(err) {
-			return next(err);
-		}
-	});
-	Post.addComment(req.params.pid, function(err){
-		if(err) {
-			return next(err);
-		}
-	});
-	res.redirect('/post/'+ req.params.pid);
 };
 
 exports.showUpdatePost = function (req, res) {

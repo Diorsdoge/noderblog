@@ -1,5 +1,4 @@
 var eventproxy = require('eventproxy');
-var Comment = require('./comments');
 var models = require('../models');
 var Images = models.Images;
 var User = require('./user');
@@ -18,7 +17,7 @@ exports.newAndSave = function (title, description, path, author, tags, time, cal
 };
 
 exports.getOneImage = function (id, callback) {
-
+	
 	Images.findOne({_id: id}, function (err, image) {
 		if (err) {
 			return callback(err);
@@ -82,20 +81,5 @@ exports.search = function(keyword, callback) {
 	Images.find({"title": pattern}, null, {"name": 1, "title": 1, "title": 1, sort: {time: -1}}, function (err, images){
 		callback(null, images);
 	});
-}
-
-exports.addComment = function(condition, callback) {
-	Images.findOne({_id: condition}, function (err, image) {
-		if (err) {
-			return callback(err);
-		}
-		if (image) {
-			post.update({$inc: {"cmtcount": 1}}, function(err){
-				if (err) {
-					return callback(err);
-				};
-			});
-		}
-		callback(null, image);
-	});
 };
+
